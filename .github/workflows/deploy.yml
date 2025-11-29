@@ -30,6 +30,6 @@ jobs:
           sed -i 's|image: govinda52/todobackend:*|image: govinda52/todobackend:${{ github.sha }}|' manifest.yml
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
-          git add.
+          git add .
           git commit -m "Update backend server image tags to ${{ github.sha }}"
           git push https://${PAT}@github.com/Govinda-Upadhya/deployment-argocd.git main
