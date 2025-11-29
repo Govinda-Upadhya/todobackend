@@ -1,6 +1,7 @@
 import express from "express";
 import { prisma } from "./lib.js";
 import cors from "cors";
+
 const app = express();
 app.use(cors({ origin: "*" }));
 app.use(express.json());
@@ -8,7 +9,7 @@ app.use(express.json());
 /**
  * Create Todo
  */
-app.post("/todos", async (req, res) => {
+app.post("/todo", async (req, res) => {
   try {
     const { task, status } = req.body;
 
