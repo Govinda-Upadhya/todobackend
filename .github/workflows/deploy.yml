@@ -20,3 +20,14 @@ jobs:
         run: |
           docker build -t ${{secrets.DOCKERHUB_USERNAME}}/todobackend:${{github.sha}} --build-arg DATABASE_URL=${{secrets.DATABASE_URL}} -f dockerfile .
           docker push ${{secrets.DOCKERHUB_USERNAME}}/todobackend:${{github.sha}}
+      - name: Clone staging-ops repo, update image tags, and push tags
+        env:
+          PAT: ${{ secrets.PAT}}
+        run: |
+          git clone https://github.com/Govinda-Upadhya/deployment-argocd.git
+          sed -i 's|image: govinda52/todobackend:*|image: govinda52/todobackend:${{ github.sha }}|' mainfest.yml
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add.
+          git commit -m "Update backend server image tags to ${{ github.sha }}"
+          git push https://${PAT}@github.com/Govinda-Upadhya/deployment-argocd.git main
