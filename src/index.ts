@@ -1,7 +1,8 @@
 import express from "express";
 import { prisma } from "./lib.js";
-
+import cors from "cors";
 const app = express();
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 /**
@@ -34,6 +35,7 @@ app.get("/todos", async (req, res) => {
     return res.json({ todos });
   } catch (err) {
     console.error(err);
+
     return res.status(500).json({ error: "Failed to fetch todos" });
   }
 });
@@ -75,7 +77,7 @@ app.put("/todos/:id", async (req, res) => {
     });
 
     return res.json({ todo });
-  } catch (err) {
+  } catch (err: any) {
     console.error(err);
 
     if (err.code === "P2025") {
@@ -98,7 +100,7 @@ app.delete("/todos/:id", async (req, res) => {
     });
 
     return res.json({ message: "Todo deleted" });
-  } catch (err) {
+  } catch (err: any) {
     console.error(err);
 
     if (err.code === "P2025") {
