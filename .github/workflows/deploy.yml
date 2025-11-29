@@ -25,6 +25,7 @@ jobs:
           PAT: ${{ secrets.PAT}}
         run: |
           git clone https://github.com/Govinda-Upadhya/deployment-argocd.git
+          cd deployment-argocd
           sed -i 's|image: govinda52/todobackend:*|image: govinda52/todobackend:${{ github.sha }}|' mainfest.yml
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
