@@ -27,7 +27,7 @@ jobs:
           git clone https://github.com/Govinda-Upadhya/deployment-argocd.git
           ls -al
           cd deployment-argocd
-          sed -i 's|image: govinda52/todobackend:*|image: govinda52/todobackend:${{ github.sha }}|' manifest.yml
+          sed -i 's|image: govinda52/todobackend:.*|image: govinda52/todobackend:${{ github.sha }}|' manifest.yml
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
           git add .
