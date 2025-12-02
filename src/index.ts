@@ -9,7 +9,7 @@ app.use(express.json());
 /**
  * Create Todo
  */
-app.post("/todo", async (req, res) => {
+app.post("/backend/todo", async (req, res) => {
   try {
     const { task, status } = req.body;
 
@@ -30,7 +30,7 @@ app.post("/todo", async (req, res) => {
 /**
  * Get All Todos
  */
-app.get("/todos", async (req, res) => {
+app.get("/backend/todos", async (req, res) => {
   try {
     const todos = await prisma.todo.findMany();
     return res.json({ todos });
@@ -44,7 +44,7 @@ app.get("/todos", async (req, res) => {
 /**
  * Get Todo by ID
  */
-app.get("/todo/:id", async (req, res) => {
+app.get("/backend/todo/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -64,7 +64,7 @@ app.get("/todo/:id", async (req, res) => {
 /**
  * Update Todo
  */
-app.put("/todos/:id", async (req, res) => {
+app.put("/backend/todos/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { task, status } = req.body;
@@ -92,7 +92,7 @@ app.put("/todos/:id", async (req, res) => {
 /**
  * Delete Todo
  */
-app.delete("/todos/:id", async (req, res) => {
+app.delete("/backend/todos/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
