@@ -1,10 +1,12 @@
 import express from "express";
 import { prisma } from "./lib.js";
 import cors from "cors";
-
+import client from "prom-client";
+import { requestCountMiddleware } from "./metric/requestcount.js";
 const app = express();
 app.use(cors({ origin: "*" }));
 app.use(express.json());
+app.use(requestCountMiddleware);
 
 /**
  * Create Todo
@@ -112,4 +114,9 @@ app.delete("/backend/todos/:id", async (req, res) => {
   }
 });
 
+app.get("/metrics", async (req, res) => {
+  const metrics = await client.register.metrics();
+  res.set("Content-Type", client.register.contentType);
+  res.end(metrics);
+});
 app.listen(3000, () => console.log("listening..."));
